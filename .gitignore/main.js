@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 const client = new Discord.Client({disableEveryone: true});
 const fs = require("fs");
 client.commands = new Discord.Collection();
-var prefix = "%"
 
+var prefix = "%"
 
 // Command Handler :
 
@@ -29,24 +29,50 @@ client.on("ready", async () => {
 });
 
 
-client.on("message", async message => {
+client.on("guildMemberAdd", member => {
+
+    var joinrole = member.guild.roles.find('name', 'Client')
+    member.addRole(joinrole);
+
+    var joinembed = new Discord.RichEmbed()
+    .setColor('#020202')
+    .setAuthor('MultiBot', client.user.avatarURL)
+    .setFooter('MultiBot, développé par Angel 🐢#2344')
+.setThumbnail(member.user.avatarURL)
+.setDescription(`Bienvenue ${member.user} sur le serveur !`)
+.addField("Passe du bon temps sur **MultiBot || Support**", "si tu as une question, pose la dans <#518805117387145219> !")
+
+    member.guild.channels.find("name", "bienvenue").send(joinembed)
+})
 
 
-    
+client.on("guildMemberRemove", member => {
 
+    var leaveembed = new Discord.RichEmbed()
+.setThumbnail(member.user.avatarURL)
+.setAuthor('MultiBot', client.user.avatarURL)
+    .setFooter('MultiBot, développé par Angel 🐢#2344')
+.setDescription(`**${member.user.username}** nous a quitté !`)
+.addField(" J'espère qu'il reviendra nous voir !", '** **')
+.setColor('#020202')
 
-    // autres
+    member.guild.channels.find("name", "aurevoire").send(leaveembed)
+})
+client.on("guildMemberAdd", member => {
+    member.addRole(member.guild.roles.find(role => role.name === "Client"));
+})
 
-    let msgArray = message.content.split(" ");
-    let cmd = msgArray[0];
-    let args = msgArray.slice(1);
-
+client.on("message", async msg => {
 
     //Command Handler :
+
+    let msgArray = msg.content.split(" ");
+    let cmd = msgArray[0];
+    let args = msgArray.slice(1);
     let commandfile = client.commands.get(cmd.slice(prefix.length));
-    if(commandfile) commandfile.run(client,message,args);
+    if(commandfile) commandfile.run(client,msg,args);
 
 
 });
 
-client.login("NTE4Nzg4NTExMTI2NTE5ODA4.DuV3BQ.dTnCECDSIvs1jDhnp4KnnfNUQc0")
+client.login('NTE4Nzg4MDkzNjM0MTUwNDAw.DuV2sg.vcYeGisI0eUt3cSZhPWYcldeiU8')
