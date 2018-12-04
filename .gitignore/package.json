@@ -1,5 +1,5 @@
 {
-  "name": "multibot",
+  "name": "multibotmanager",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
@@ -10,13 +10,10 @@
   "description": "Le nouveau bot Discord !",
   "dependencies": {
     "discord.js": "^11.4.2",
-    "discord.js-commando": "^0.10.0",
     "fs": "0.0.1-security",
-    "moment": "^2.22.2",
     "nodemon": "^1.18.7",
-    "opusscript": "0.0.6",
-    "simple-youtube-api": "^5.1.1",
     "youtube-dl": "^1.12.2",
     "ytdl-core": "^0.28.0"
   }
 }
+
